@@ -1,20 +1,24 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import CleverPush from 'cleverpush';
 import './App.css';
 
 function App() {
-  const [date, setDate] = useState(null);
-  useEffect(() => {
-    async function getDate() {
-      const res = await fetch('/api/date');
-      const newDate = await res.text();
-      setDate(newDate);
-    }
-    getDate();
-  }, []);
+  CleverPush = window.CleverPush || [];
+  CleverPush.push(['triggerOptIn', function(err, subscriptionId) {
+      if (err) {
+          console.error(err);
+      } else {
+          console.log('successfully subscribed with id', subscriptionId);
+      }
+  }]);
+  
+  // Set the second parameter to 'true' to skip the opt-in timeout.
+  // It will also show the opt-in if the user has previously denied or unsubscribed.
+  CleverPush.push(['triggerOptIn', true]);
   return (
     <main>
-      <h1>Create React App + Go API</h1>
+      <h1>Welcome to CleverPush!</h1>
       <h2>
         Deployed with{' '}
         <a
@@ -26,31 +30,9 @@ function App() {
         </a>
         !
       </h2>
-      <p>
-        <a
-          href="https://github.com/vercel/vercel/tree/main/examples/create-react-app"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          This project
-        </a>{' '}
-        was bootstrapped with{' '}
-        <a href="https://facebook.github.io/create-react-app/">
-          Create React App
-        </a>{' '}
-        and contains three directories, <code>/public</code> for static assets,{' '}
-        <code>/src</code> for components and content, and <code>/api</code>{' '}
-        which contains a serverless <a href="https://golang.org/">Go</a>{' '}
-        function. See{' '}
-        <a href="/api/date">
-          <code>api/date</code> for the Date API with Go
-        </a>
-        .
-      </p>
-      <br />
-      <h2>The date according to Go is:</h2>
-      <p>{date ? date : 'Loading date...'}</p>
-    </main>
+      <div class="cleverpush-content-button" data-type="button-simple" data-button-text="Push Nachrichten erhalten" data-button-text-subscribed="Push Nachrichten abonniert" data-button-background-color="#42a2f2" data-button-color="#ffffff"></div>
+      
+            </main>
   );
 }
 
