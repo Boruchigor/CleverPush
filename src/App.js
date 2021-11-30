@@ -1,13 +1,30 @@
-import React from 'react';
-import CleverPush from 'cleverpush';
+import React, { useEffect } from 'react';
 import './App.css';
+import Button from './Button';
 
 function App() {
-
+  const [text, setText] = React.useState('');
+  const CleverPush = window.CleverPush || [];
+  const handleClick = () => {
+    CleverPush.push(['isSubscribed', function(result) {
+      console.log('CleverPush isSubscribed result', result); // true or false
+      if(result === false){
+        CleverPush.push(['subscribe', function(result) {
+          console.log('CleverPush subscribe result', result); // true or false
+        }]);
+      } else {
+        CleverPush.push(['unsubscribe', function(result) {
+          console.log('CleverPush unsubscribe result', result); // true or false
+        }]);
+      }
+    }])};
+ 
+  
   return (
     <main>
       <h1>Welcome to CleverPush!</h1>
-      <h2>
+      <div onClick={handleClick}>
+      <h2 >
         Deployed with{' '}
         <a
           href="https://vercel.com/docs"
@@ -18,8 +35,8 @@ function App() {
         </a>
         !
       </h2>
-      <div className="cleverpush-content-button" data-type="button-simple" data-button-text="Push Nachrichten erhalten" data-button-text-subscribed="Push Nachrichten abonniert" data-button-background-color="#42a2f2" data-button-color="#ffffff"></div>
-   
+     </div>
+     <Button text={text}/>
       
             </main>
   );
