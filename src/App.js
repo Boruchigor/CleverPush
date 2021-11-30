@@ -1,6 +1,4 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import CleverPush from 'cleverpush';
 import './App.css';
 
 function App() {
@@ -30,8 +28,8 @@ function App() {
         </a>
         !
       </h2>
-      <button class="cleverpush-content-button" data-type="button-simple" data-button-text="Push Nachrichten erhalten" data-button-text-subscribed="Push Nachrichten abonniert" data-button-background-color="#42a2f2" data-button-color="#ffffff"></button>
-      <div class="cleverpush-content-button" data-type="button-simple" data-button-text="Push Nachrichten erhalten" data-button-text-subscribed="Push Nachrichten abonniert" data-button-background-color="#42a2f2" data-button-color="#ffffff"></div>
+      <div className="cleverpush-content-button" data-type="button-simple" data-button-text="Push Nachrichten erhalten" data-button-text-subscribed="Push Nachrichten abonniert" data-button-background-color="#42a2f2" data-button-color="#ffffff"></div>
+   
       
             </main>
   );
